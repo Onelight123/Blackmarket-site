@@ -15,45 +15,143 @@
         /* Styles généraux */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #0d0d15;
+            background-color: #1a1a2e; /* Fond sombre violet par défaut (mode nuit) */
             color: #ffffff;
             line-height: 1.6;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            padding: 20px;
+            min-height: 100vh;
+            padding: 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
+        body.light-mode {
+            background-color: #f4f4f9; /* Fond clair pour le mode jour */
+            color: #333333;
+        }
+
+        /* Menu */
+        nav {
+            width: 100%;
+            background-color: #2a2a40; /* Violet plus clair */
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.5s ease;
+        }
+
+        body.light-mode nav {
+            background-color: #ffffff; /* Fond clair pour le mode jour */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #bb86fc; /* Violet pastel */
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        body.light-mode nav ul li a {
+            color: #6a1b9a; /* Violet plus foncé pour le mode jour */
+        }
+
+        nav ul li a:hover {
+            color: #9a67ea; /* Violet plus vif */
+        }
+
+        /* Bouton mode jour/nuit */
+        .theme-toggle {
+            background-color: #bb86fc; /* Violet pastel */
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle {
+            background-color: #6a1b9a; /* Violet plus foncé pour le mode jour */
+            color: #ffffff;
+        }
+
+        .theme-toggle:hover {
+            background-color: #9a67ea; /* Violet plus vif */
+        }
+
+        /* Contenu principal */
         .container {
             max-width: 800px;
             width: 100%;
-            background: #1e1e2f;
+            background: #2a2a40; /* Violet plus clair */
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             text-align: center;
+            margin-top: 80px; /* Pour éviter que le menu ne chevauche le contenu */
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        body.light-mode .container {
+            background-color: #ffffff; /* Fond clair pour le mode jour */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            color: #333333;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #00d1ff;
+            color: #bb86fc; /* Violet pastel */
+            transition: color 0.5s ease;
+        }
+
+        body.light-mode h1 {
+            color: #6a1b9a; /* Violet plus foncé pour le mode jour */
         }
 
         p {
             font-size: 1.1rem;
             margin-bottom: 20px;
+            transition: color 0.5s ease;
+        }
+
+        body.light-mode p {
+            color: #333333;
         }
 
         .highlight {
-            color: #00d1ff;
+            color: #bb86fc; /* Violet pastel */
             font-weight: bold;
+            transition: color 0.5s ease;
+        }
+
+        body.light-mode .highlight {
+            color: #6a1b9a; /* Violet plus foncé pour le mode jour */
         }
 
         .discord-button {
             display: inline-block;
-            background-color: #7289DA;
+            background-color: #bb86fc; /* Violet pastel */
             color: #ffffff;
             padding: 12px 24px;
             border-radius: 5px;
@@ -62,61 +160,60 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
+        body.light-mode .discord-button {
+            background-color: #6a1b9a; /* Violet plus foncé pour le mode jour */
+        }
+
         .discord-button:hover {
-            background-color: #5a6fb5;
+            background-color: #9a67ea; /* Violet plus vif */
             transform: scale(1.05);
-        }
-
-        /* Animation du fond */
-        @keyframes gradientBackground {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #0d0d15, #1e1e2f, #2a2a40);
-            background-size: 200% 200%;
-            animation: gradientBackground 10s ease infinite;
-            z-index: -1;
-        }
-
-        /* Animation du contenu */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            animation: fadeIn 1s ease-out;
         }
     </style>
 </head>
 <body>
+    <!-- Menu -->
+    <nav>
+        <ul>
+            <li><a href="https://discord.gg/fRMvSVbkMB" target="_blank">Nous contacter</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()">Mode Jour</button>
+    </nav>
+
+    <!-- Contenu principal -->
     <div class="container">
         <h1>Blackmarket</h1>
-        <p>Bienvenue sur <span class="highlight">Blackmarket</span>, le shop Paladium où vous trouverez les meilleures ressources pour votre gameplay.</p>
-        <p>Notre <span class="highlight">staff est à l'écoute</span> et prêt à vous aider pour toutes vos commandes.</p>
-        <p>Nous <span class="highlight">recrutons</span> ! Si vous souhaitez rejoindre notre équipe, contactez-nous sur Discord.</p>
-        <a href="https://discord.gg/ton-lien" class="discord-button" target="_blank">Rejoindre le serveur</a>
+        <p>
+            Bienvenue sur <span class="highlight">Blackmarket</span>, le shop Paladium où vous trouverez les meilleures ressources pour votre gameplay. Que vous soyez un joueur occasionnel ou un vétéran, nous avons ce qu'il vous faut.
+        </p>
+        <p>
+            Chez <span class="highlight">Blackmarket</span>, nous nous engageons à fournir des produits de <span class="highlight">haute qualité</span> à des prix <span class="highlight">compétitifs</span>. Que ce soit du Paladium, des diamants, de l'or ou d'autres minerais, nous garantissons une livraison rapide et sécurisée.
+        </p>
+        <p>
+            Notre <span class="highlight">staff est à l'écoute</span> et disponible 24/7 pour répondre à vos questions et vous accompagner dans vos achats. Nous croyons en un service client de qualité, et votre satisfaction est notre priorité.
+        </p>
+        <p>
+            Envie de nous rejoindre ? Nous <span class="highlight">recrutons</span> ! Si vous êtes passionné de Paladium et que vous souhaitez faire partie d'une équipe dynamique, contactez-nous sur Discord pour plus d'informations.
+        </p>
+        <p>
+            Rejoignez dès maintenant <span class="highlight">Blackmarket</span> et découvrez pourquoi nous sommes l'un des shops préférés des joueurs de Paladium !
+        </p>
+        <a href="https://discord.gg/fRMvSVbkMB" class="discord-button" target="_blank">Rejoindre le serveur</a>
     </div>
+
+    <script>
+        // Fonction pour basculer entre les modes jour et nuit
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+
+            body.classList.toggle('light-mode');
+
+            if (body.classList.contains('light-mode')) {
+                themeToggle.textContent = 'Mode Nuit';
+            } else {
+                themeToggle.textContent = 'Mode Jour';
+            }
+        }
+    </script>
 </body>
 </html>
